@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FragClass">
+            <Button
+                android:id="@+id/firstclass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layout_marginBottom="4dp"
+                android:text="50.001 Introduction to Information Systems and Programming" />
+
+            <Button
+                android:id="@+id/secondclass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layout_marginBottom="4dp"
+                android:text="50.002 Computation Structures"/>
+            <Button
+                android:id="@+id/thirdclass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:layout_marginBottom="4dp"
+                android:text="50.004 Introduction to Algorithms"/>
+    </LinearLayout>
