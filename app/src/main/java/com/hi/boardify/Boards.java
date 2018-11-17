@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Boards extends AppCompatActivity {
 
     ArrayList<ImageModel> data = new ArrayList<>();
-    public static String IMGS[] = {"https://vignette.wikia.nocookie.net/deltarune/images/0/03/Susie_face.png/revision/latest?cb=20181104052309",
+    public static String IMGS[] = {"https://cdn.vox-cdn.com/thumbor/15ya4Dy0W11mQ6EQWksZw6hN0qs=/0x0:800x450/920x613/filters:focal(239x138:367x266):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62348289/800px-Serena_Eevee.0.0.png", "https://vignette.wikia.nocookie.net/deltarune/images/0/03/Susie_face.png/revision/latest?cb=20181104052309",
             "https://vignette.wikia.nocookie.net/deltarune/images/7/7c/Ralsei_face.png/revision/latest?cb=20181102004128",
             "https://vignette.wikia.nocookie.net/undertale/images/6/67/Dogamy.png/revision/latest?cb=20160227205510&path-prefix=ru",
             "https://m.gjcdn.net/screenshot-thumbnail/300x300/419140-v3.jpg","https://vignette.wikia.nocookie.net/deltarune/images/0/03/Susie_face.png/revision/latest?cb=20181104052309",
