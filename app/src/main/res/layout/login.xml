@@ -40,11 +40,12 @@
         android:layout_width="250sp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:hint="Student ID"
+        android:hint="Student Email"
         android:textColorHint="#A9A9A9"
         android:maxLines="1"
         android:drawableLeft="@drawable/ic_person_black_24dp"
         android:drawablePadding="15sp"
+        android:inputType="textEmailAddress"
         />
 
 
@@ -59,21 +60,16 @@
         android:drawablePadding="15sp"
         android:hint="Password"
         android:maxLines="1"
-        android:textColorHint="#A9A9A9" />
-
+        android:textColorHint="#A9A9A9"
+        android:inputType="textPassword"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:id="@+id/remember_me_btn"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="159dp"
         android:layout_marginLeft="70sp"
         android:text="Remember Me"/>
-
-
-
-
-
 
 </RelativeLayout>
