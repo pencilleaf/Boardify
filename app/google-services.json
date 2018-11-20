@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "210574779516",
+    "firebase_url": "https://boardify-c4f1b.firebaseio.com",
+    "project_id": "boardify-c4f1b",
+    "storage_bucket": "boardify-c4f1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210574779516:android:66cdbab638802e48",
+        "android_client_info": {
+          "package_name": "com.hi.boardify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210574779516-v9d5lfsihgdimtk7ennh79fnvthuha08.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hi.boardify",
+            "certificate_hash": "345c827ae61fbdafec475e254506a1f5cffd03db"
+          }
+        },
+        {
+          "client_id": "210574779516-30jgqpfvdhb7kkendaoc4qgtvag1hntq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDuk18ilYq2lrNlNCQ2uTQ9uuDftzl_NM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210574779516-30jgqpfvdhb7kkendaoc4qgtvag1hntq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
