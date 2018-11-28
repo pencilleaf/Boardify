@@ -17,9 +17,9 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context context;
-    List<ImageModel> data = new ArrayList<>();
+    ArrayList<ImageModel> data;
 
-    public GalleryAdapter(Context context, List<ImageModel> data) {
+    public GalleryAdapter(Context context, ArrayList<ImageModel> data) {
         this.context = context;
         this.data = data;
     }

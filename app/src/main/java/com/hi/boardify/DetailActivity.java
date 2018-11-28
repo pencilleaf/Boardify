@@ -1,7 +1,11 @@
 package com.hi.boardify;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.nfc.Tag;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,30 +16,45 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
+    private static final String TAG = "TAG";
     private GalleryPagerAdapter mSectionsPagerAdapter;
     public ArrayList<ImageModel> data = new ArrayList<>();
     int pos;
     Toolbar toolbar;
     private ViewPager mViewPager;
+    private PhotoView mPhotoView;
+    DataHolder dataHolder;
+    DatabaseReference mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        databaseReference= mRootDatabaseRef.child("users");
+
+        dataHolder = DataHolder.getInstance();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
@@ -44,7 +63,6 @@ public class DetailActivity extends AppCompatActivity {
         pos = getIntent().getIntExtra("pos",0);
 
         setTitle(data.get(pos).getName());
-
 
 
         // Create the adapter that will return a fragment for each of the three
@@ -92,8 +110,23 @@ public class DetailActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_download){
+            Toast.makeText(this,data.get(pos).getUrl(),Toast.LENGTH_LONG).show();
+            dataHolder.addData(data.get(pos));
+            databaseReference.push().setValue(data.get(pos));
+
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+    public boolean saveArray(String[] array, String arrayName, Context mContext) {
+        SharedPreferences prefs = mContext.getSharedPreferences("preferencename", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(arrayName +"_size", array.length);
+        for(int i=0;i<array.length;i++)
+            editor.putString(arrayName + "_" + i, array[i]);
+        return editor.commit();
     }
 }
 

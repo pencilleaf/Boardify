@@ -99,7 +99,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_class) {
             fragment = new FragClass();
         } else if (id == R.id.nav_saved) {
-            fragment = new FragSaved();
+            Intent intent = new Intent(this, DownloadBoards.class);
+            startActivity(intent);
         }
         if(fragment!=null){
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

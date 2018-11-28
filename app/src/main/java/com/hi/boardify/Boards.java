@@ -1,31 +1,35 @@
 package com.hi.boardify;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
 public class Boards extends AppCompatActivity {
 
+    String server_url = "http://boardify.ml";
     ArrayList<ImageModel> data = new ArrayList<>();
-    public static String IMGS[] = {"https://cdn.vox-cdn.com/thumbor/15ya4Dy0W11mQ6EQWksZw6hN0qs=/0x0:800x450/920x613/filters:focal(239x138:367x266):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62348289/800px-Serena_Eevee.0.0.png", "https://vignette.wikia.nocookie.net/deltarune/images/0/03/Susie_face.png/revision/latest?cb=20181104052309",
-            "https://vignette.wikia.nocookie.net/deltarune/images/7/7c/Ralsei_face.png/revision/latest?cb=20181102004128",
-            "https://vignette.wikia.nocookie.net/undertale/images/6/67/Dogamy.png/revision/latest?cb=20160227205510&path-prefix=ru",
-            "https://m.gjcdn.net/screenshot-thumbnail/300x300/419140-v3.jpg","https://vignette.wikia.nocookie.net/deltarune/images/0/03/Susie_face.png/revision/latest?cb=20181104052309",
-            "https://vignette.wikia.nocookie.net/deltarune/images/7/7c/Ralsei_face.png/revision/latest?cb=20181102004128",
-            "https://vignette.wikia.nocookie.net/undertale/images/6/67/Dogamy.png/revision/latest?cb=20160227205510&path-prefix=ru",
-            "https://m.gjcdn.net/screenshot-thumbnail/300x300/419140-v3.jpg","https://vignette.wikia.nocookie.net/deltarune/images/0/03/Susie_face.png/revision/latest?cb=20181104052309",
-            "https://vignette.wikia.nocookie.net/deltarune/images/7/7c/Ralsei_face.png/revision/latest?cb=20181102004128",
-            "https://vignette.wikia.nocookie.net/undertale/images/6/67/Dogamy.png/revision/latest?cb=20160227205510&path-prefix=ru",
-            "https://m.gjcdn.net/screenshot-thumbnail/300x300/419140-v3.jpg","https://vignette.wikia.nocookie.net/deltarune/images/0/03/Susie_face.png/revision/latest?cb=20181104052309",
-            "https://vignette.wikia.nocookie.net/deltarune/images/7/7c/Ralsei_face.png/revision/latest?cb=20181102004128",
-            "https://vignette.wikia.nocookie.net/undertale/images/6/67/Dogamy.png/revision/latest?cb=20160227205510&path-prefix=ru",
-            "https://m.gjcdn.net/screenshot-thumbnail/300x300/419140-v3.jpg"};
+    JSONArray request;
+    GalleryAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +37,17 @@ public class Boards extends AppCompatActivity {
         setContentView(R.layout.activity_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ImageModel test = new ImageModel();
+        test.setUrl("https://storage.googleapis.com/boardify-whiteboards/7455604.jpg");
+        test.setName("test");
+        data.add(test);
+        getJson();
 
-        for (int i = 0; i < IMGS.length; i++) {
-            //	Adding images & title to POJO class and storing in Array (our data)
-            ImageModel imageModel = new ImageModel();
-            imageModel.setName("Image " + i);
-            imageModel.setUrl(IMGS[i]);
-            data.add(imageModel);
-        }
         RecyclerView mRecyclerView = findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
         mRecyclerView.setHasFixedSize(true);
-        GalleryAdapter mAdapter = new GalleryAdapter(Boards.this, data);
+        mAdapter = new GalleryAdapter(Boards.this, data);
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
@@ -63,5 +64,51 @@ public class Boards extends AppCompatActivity {
                     }
                 }));
     }
+
+    private void getJson(){
+        final RequestQueue requestQueue  = Volley.newRequestQueue(Boards.this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, server_url, null,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("LOGCAT", response.toString());
+                        try {
+                            request = response.getJSONArray("boards");
+                            Log.i("LOGCAT", request.toString());
+                            for (int i = 0; i < request.length(); i++) {
+                                try {
+                                    JSONObject jsonObject = request.getJSONObject(i);
+                                    ImageModel imageModel = new ImageModel();
+                                    imageModel.setName(jsonObject.getString("title"));
+                                    imageModel.setUrl(jsonObject.getString("url").replace("\\",""));
+                                    data.add(imageModel);
+                                    Log.i("LOGCAT", imageModel.getUrl());
+                                } catch (JSONException ex) {
+                                    ex.printStackTrace();
+                                    Log.i("LOGCAT", "Something went wrong");
+                                }
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            Log.i("LOGCAT", "Something went wrong");
+                        }
+                        mAdapter.notifyDataSetChanged();
+                        requestQueue.stop();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error){
+                error.printStackTrace();
+                requestQueue.stop();
+            }
+
+        });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
+
 
 }

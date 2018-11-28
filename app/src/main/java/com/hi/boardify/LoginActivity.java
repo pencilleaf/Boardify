@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser user;
     private EditText studentid, password;
     private Button login;
+    private String userid;
     //private int counter = 0;
     // can implement counter for login
 
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
 
 
         //onclick for login should bring us to the homepage after validation
@@ -66,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     user = auth.getCurrentUser();
+                                    userid=user.getUid();
                                     finish();
                                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
