@@ -59,6 +59,7 @@ public class Boards extends AppCompatActivity {
                         Intent intent = new Intent(Boards.this, DetailActivity.class);
                         intent.putParcelableArrayListExtra("data", data);
                         intent.putExtra("pos", position);
+                        intent.putExtra("Uniqid","Boards");
                         startActivity(intent);
 
                     }
@@ -72,10 +73,9 @@ public class Boards extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i("LOGCAT", response.toString());
                         try {
                             request = response.getJSONArray("boards");
-                            Log.i("LOGCAT", request.toString());
+
                             for (int i = 0; i < request.length(); i++) {
                                 try {
                                     JSONObject jsonObject = request.getJSONObject(i);
@@ -104,7 +104,6 @@ public class Boards extends AppCompatActivity {
             }
 
         });
-
         requestQueue.add(jsonObjectRequest);
     }
 

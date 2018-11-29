@@ -54,7 +54,7 @@ public class DownloadBoards extends AppCompatActivity {
                         for(DataSnapshot datasnapshot: dataSnapshot.getChildren()){
                             ImageModel imageModel = datasnapshot.getValue(ImageModel.class);
                             data.add(imageModel);
-                            Log.i("THE DATA FETCHED IS", imageModel.getUrl());
+
                         }
                         mAdapter = new GalleryAdapter(DownloadBoards.this, data);
                         mRecyclerView.setAdapter(mAdapter);
@@ -74,6 +74,7 @@ public class DownloadBoards extends AppCompatActivity {
                         Intent intent = new Intent(DownloadBoards.this, DetailActivity.class);
                         intent.putParcelableArrayListExtra("data", data);
                         intent.putExtra("pos", position);
+                        intent.putExtra("Uniqid","DownloadBoards");
                         startActivity(intent);
 
                     }

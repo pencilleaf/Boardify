@@ -9,11 +9,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_download"
-        android:orderInCategory="100"
-        android:title="Download"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/action_delete"
         android:orderInCategory="100"
         android:title="Delete"
