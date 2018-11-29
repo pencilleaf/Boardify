@@ -22,12 +22,12 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 public class DownloadBoards extends AppCompatActivity {
-    ArrayList<ImageModel> data = new ArrayList<>();
+    ArrayList<ImageModel> data;
     JSONArray request;
     GalleryAdapter mAdapter;
-    DataHolder dataHolder = DataHolder.getInstance();
     DatabaseReference mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference databaseReference;
+
 
 
     @Override
@@ -39,27 +39,34 @@ public class DownloadBoards extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        data = new ArrayList<>();
+        final RecyclerView mRecyclerView = findViewById(R.id.list);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        mRecyclerView.setHasFixedSize(true);
 
         databaseReference.addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     //listen for changes, the entire set of data is passed to data snapshot
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Log.i("LAG", dataSnapshot.getValue().toString());
+                        data.clear();
+                        for(DataSnapshot datasnapshot: dataSnapshot.getChildren()){
+                            ImageModel imageModel = datasnapshot.getValue(ImageModel.class);
+                            data.add(imageModel);
+                            Log.i("THE DATA FETCHED IS", imageModel.getUrl());
+                        }
+                        mAdapter = new GalleryAdapter(DownloadBoards.this, data);
+                        mRecyclerView.setAdapter(mAdapter);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
                 }
         );
-        data = dataHolder.getAllData();
+       // data = dataHolder.getAllData();
 
-        RecyclerView mRecyclerView = findViewById(R.id.list);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
-        mRecyclerView.setHasFixedSize(true);
-        mAdapter = new GalleryAdapter(DownloadBoards.this, data);
-        mRecyclerView.setAdapter(mAdapter);
+
+
 
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
                 new RecyclerItemClickListener.OnItemClickListener() {

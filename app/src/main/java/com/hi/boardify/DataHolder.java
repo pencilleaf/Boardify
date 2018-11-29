@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+// WE DONT REALLY NEED THIS CLASS ANYMORE BUT I'LL JUST LEAVE IT HERE FIRST
 public class DataHolder {
     private static DataHolder data_holder = null;
     private ArrayList<ImageModel> storeddata = new ArrayList<>();

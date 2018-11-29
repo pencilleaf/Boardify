@@ -112,9 +112,7 @@ public class DetailActivity extends AppCompatActivity {
         }
         if (id == R.id.action_download){
             Toast.makeText(this,data.get(pos).getUrl(),Toast.LENGTH_LONG).show();
-            dataHolder.addData(data.get(pos));
             databaseReference.push().setValue(data.get(pos));
-
             return true;
         }
 
