@@ -7,14 +7,15 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-// WE DONT REALLY NEED THIS CLASS ANYMORE BUT I'LL JUST LEAVE IT HERE FIRST
+// Only using this class for the UserID technically
 public class DataHolder {
     private static DataHolder data_holder = null;
-    private ArrayList<ImageModel> storeddata = new ArrayList<>();
+
+    private String userID;
 
     private DataHolder(){
-
     }
+
     public static DataHolder getInstance() {
         if (data_holder == null) {
             data_holder = new DataHolder();
@@ -23,28 +24,10 @@ public class DataHolder {
             return data_holder;
         }
     }
-
-    public ArrayList<ImageModel> getAllData(){
-        return this.storeddata;
+    public void addUserID(String id){
+        userID = id;
     }
-
-    public ImageModel getData(int i){
-        return storeddata.get(i);
+    public String getUserID(){
+        return userID;
     }
-
-    public void addData(ImageModel m){
-        storeddata.add(m);
-    }
-    public static <E> void SaveArrayListToSD(Context mContext, String filename, ArrayList<E> list){
-        try {
-
-            FileOutputStream fos = mContext.openFileOutput(filename + ".dat", mContext.MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(list);
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }

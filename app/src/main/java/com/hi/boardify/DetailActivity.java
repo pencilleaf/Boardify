@@ -42,19 +42,20 @@ public class DetailActivity extends AppCompatActivity {
     int pos;
     Toolbar toolbar;
     private ViewPager mViewPager;
-    private PhotoView mPhotoView;
     DataHolder dataHolder;
     DatabaseReference mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference databaseReference;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-        databaseReference= mRootDatabaseRef.child("users");
-
         dataHolder = DataHolder.getInstance();
+        setContentView(R.layout.activity_detail);
+        databaseReference= mRootDatabaseRef.child(dataHolder.getUserID());
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
@@ -117,14 +118,6 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-    public boolean saveArray(String[] array, String arrayName, Context mContext) {
-        SharedPreferences prefs = mContext.getSharedPreferences("preferencename", 0);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(arrayName +"_size", array.length);
-        for(int i=0;i<array.length;i++)
-            editor.putString(arrayName + "_" + i, array[i]);
-        return editor.commit();
     }
 }
 

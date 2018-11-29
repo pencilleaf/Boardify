@@ -27,13 +27,14 @@ public class DownloadBoards extends AppCompatActivity {
     GalleryAdapter mAdapter;
     DatabaseReference mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference databaseReference;
+    DataHolder dataHolder;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        databaseReference= mRootDatabaseRef.child("users");
+        dataHolder = DataHolder.getInstance();
+        databaseReference= mRootDatabaseRef.child(dataHolder.getUserID());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,10 +64,6 @@ public class DownloadBoards extends AppCompatActivity {
                     }
                 }
         );
-       // data = dataHolder.getAllData();
-
-
-
 
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
                 new RecyclerItemClickListener.OnItemClickListener() {

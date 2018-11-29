@@ -27,7 +27,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser user;
     private EditText studentid, password;
     private Button login;
-    private String userid;
+    public String userid;
+    DataHolder dataHolder;
     //private int counter = 0;
     // can implement counter for login
 
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        dataHolder = DataHolder.getInstance();
         studentid = findViewById(R.id.studentid);
         password = findViewById(R.id.password);
         login = findViewById(R.id.login);
@@ -69,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     user = auth.getCurrentUser();
                                     userid=user.getUid();
+                                    dataHolder.addUserID(userid);
                                     finish();
                                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -82,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 // method to check for the validity of the username and password
