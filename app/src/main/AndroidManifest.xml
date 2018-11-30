@@ -35,6 +35,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hi.boardify.MainActivity" />
         </activity>
+        <activity
+            android:name=".WebViewActivity"
+            android:label="WebViewActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.hi.boardify.LoginActivity" />
+        </activity>
 
         <activity
             android:name=".DetailActivity"

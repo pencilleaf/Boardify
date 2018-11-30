@@ -2,17 +2,21 @@ package com.hi.boardify;
 
 
 
-import android.app.TabActivity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextClock;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,36 +29,53 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
-    private EditText studentid, password;
+    private EditText email, password;
     private Button login;
     public String userid;
     DataHolder dataHolder;
+    RadioButton radioButton;
+
     //private int counter = 0;
     // can implement counter for login
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.loginpage);
         dataHolder = DataHolder.getInstance();
-        studentid = findViewById(R.id.studentid);
-        password = findViewById(R.id.password);
-        login = findViewById(R.id.login);
+        email = findViewById(R.id.userEmail);
+        password = findViewById(R.id.userPassword);
+        login = findViewById(R.id.loginButton);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        radioButton = findViewById(R.id.radioButton);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        TextView needHelp = findViewById(R.id.needHelp);
+        String help ="Need help? Click here.";
+        SpannableString ss = new SpannableString(help);
 
-
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Log.i("LOGCAT", "help is clicked");
+                Intent intent = new Intent(LoginActivity.this,WebViewActivity.class);
+                startActivity(intent);
+                Toast.makeText(LoginActivity.this,"hello",Toast.LENGTH_SHORT).show();
+            }
+        };
+        ss.setSpan(clickableSpan,17,22, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        needHelp.setText(ss);
+        needHelp.setMovementMethod(LinkMovementMethod.getInstance());
 
         //onclick for login should bring us to the homepage after validation
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String loginstudentid = studentid.getText().toString().trim();
+                String loginstudentid = email.getText().toString().trim();
                 String loginpassword = password.getText().toString().trim();
 
-                if(TextUtils.isEmpty(loginstudentid)) {
+                if (TextUtils.isEmpty(loginstudentid)) {
                     Toast.makeText(LoginActivity.this, "Please enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -63,25 +84,28 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (radioButton.isChecked()) {
+                    auth.signInWithEmailAndPassword(loginstudentid, loginpassword)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        user = auth.getCurrentUser();
+                                        userid = user.getUid();
+                                        dataHolder.addUserID(userid);
+                                        finish();
+                                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "Login is unsuccessful",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
 
-                auth.signInWithEmailAndPassword(loginstudentid, loginpassword)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    user = auth.getCurrentUser();
-                                    userid=user.getUid();
-                                    dataHolder.addUserID(userid);
-                                    finish();
-                                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                }
-                                else {
-                                    Toast.makeText(LoginActivity.this, "Login is unsuccessful",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                }else{
+                    Toast.makeText(LoginActivity.this,"Please accept the terms and conditions", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -89,8 +113,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
 // method to check for the validity of the username and password
-//    private void validate(String studentid,String password){
-//        if (studentid == "1002751" && password == "1234"){
+//    private void validate(String email,String password){
+//        if (email == "1002751" && password == "1234"){
 //            Intent intent = new Intent(MainActivity.this,TabManager.class);
 //            startActivity(intent);
 //        }

@@ -6,4 +6,5 @@
     <color name="colorlight">#ECEFF1</color>
     <color name="colordark">#263238</color>
     <color name="colorbg">#EEEEEE</color>
+    <color name="white">#fff</color>
 </resources>
