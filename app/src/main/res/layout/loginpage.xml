@@ -15,6 +15,7 @@
         android:id="@+id/formBack"
         />
 
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -126,13 +127,26 @@
 
     </ScrollView>
     <TextView
-        android:id="@+id/needHelp"
+    android:id="@+id/needHelp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Need help? Click here."
+    android:textColor="@color/white"
+    android:layout_below="@+id/scrollView"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="30dp"
+    android:layout_marginEnd="30dp"
+    android:gravity="center"
+    />
+    <TextView
+        android:id="@+id/poweredby"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Need help? Click here."
+        android:layout_alignParentBottom="true"
+        android:text="Powered by Boardify"
         android:textColor="@color/white"
         android:layout_below="@+id/scrollView"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:gravity="center"

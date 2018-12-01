@@ -14,6 +14,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView needHelp = findViewById(R.id.needHelp);
         String help ="Need help? Click here.";
         SpannableString ss = new SpannableString(help);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -110,15 +112,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-
-// method to check for the validity of the username and password
-//    private void validate(String email,String password){
-//        if (email == "1002751" && password == "1234"){
-//            Intent intent = new Intent(MainActivity.this,TabManager.class);
-//            startActivity(intent);
-//        }
-    //if statement to track login counter
 }
 
 
