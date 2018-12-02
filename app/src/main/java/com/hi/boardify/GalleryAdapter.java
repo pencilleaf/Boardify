@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +20,9 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context context;
-    List<ImageModel> data = new ArrayList<>();
+    ArrayList<ImageModel> data;
 
-    public GalleryAdapter(Context context, List<ImageModel> data) {
+    public GalleryAdapter(Context context, ArrayList<ImageModel> data) {
         this.context = context;
         this.data = data;
     }
@@ -30,7 +33,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         RecyclerView.ViewHolder viewHolder;
         View v;
         v = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.list_item, parent, false);
+                R.layout.card_item, parent, false);
         viewHolder = new MyItemHolder(v);
 
         return viewHolder;
@@ -38,12 +41,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        ((MyItemHolder) holder).imagetitle.setText(data.get(position).getName());
         Glide.with(context).load(data.get(position).getUrl())
                 .transition(withCrossFade())
                 .thumbnail(0.5f)
                 .apply(new RequestOptions().override(200,200))
-                .into(((MyItemHolder) holder).mImg);
+                .into(((MyItemHolder) holder).thumbnail);
 
     }
 
@@ -53,13 +56,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public static class MyItemHolder extends RecyclerView.ViewHolder {
-        ImageView mImg;
+        ImageView thumbnail;
+        TextView imagetitle;
 
 
         public MyItemHolder(View itemView) {
             super(itemView);
 
-            mImg = (ImageView) itemView.findViewById(R.id.item_img);
+            thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
+            imagetitle = (TextView) itemView.findViewById(R.id.imagetitle);
         }
 
     }
