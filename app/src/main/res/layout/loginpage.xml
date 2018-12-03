@@ -106,6 +106,7 @@
                 android:layout_gravity="center"
                 android:button="@drawable/radio_button"
                 android:paddingLeft="5dp"
+                android:singleLine="true"
                 android:textSize="13sp" />
 
             <Button

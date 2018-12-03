@@ -98,6 +98,7 @@ public class DetailActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+
         if (id == R.id.action_download){
             databaseReference.child(data.get(pos).getName()).setValue(data.get(pos));
             Toast.makeText(this,"Whiteboard downloaded",Toast.LENGTH_LONG).show();
