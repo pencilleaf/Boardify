@@ -1,6 +1,8 @@
 package com.hi.boardify;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -11,8 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -26,11 +32,14 @@ public class DetailActivity extends AppCompatActivity {
     DataHolder dataHolder;
     DatabaseReference mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference databaseReference;
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         dataHolder = DataHolder.getInstance();
         setContentView(R.layout.activity_detail);
         databaseReference= mRootDatabaseRef.child(dataHolder.getUserID());
@@ -106,9 +115,27 @@ public class DetailActivity extends AppCompatActivity {
         }
         if (id == R.id.action_delete){
             databaseReference.child(data.get(pos).getName()).removeValue();
+
+            String storageUrl = "images/"+data.get(pos).getName();
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(storageUrl);
+            storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // File deleted successfully
+                    Log.d(TAG, "onSuccess: deleted file");
+                    dataHolder.decuploadCount();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred!
+                    Log.d(TAG, "onFailure: did not delete file");
+                }
+            });
             Intent intent = new Intent(DetailActivity.this, DownloadBoards.class);
             startActivity(intent);
-            Toast.makeText(this,"Whiteboard deleted",Toast.LENGTH_LONG).show();
+            Toast.makeText(DetailActivity.this,"Whiteboard deleted",Toast.LENGTH_LONG).show();
+
         }
 
         return super.onOptionsItemSelected(item);

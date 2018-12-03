@@ -3,6 +3,7 @@ package com.hi.boardify;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,6 +44,8 @@ public class Boards extends AppCompatActivity {
         test.setName("test");
         data.add(test);
         getJson();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.hide();
 
         RecyclerView mRecyclerView = findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));

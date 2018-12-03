@@ -12,8 +12,9 @@ public class DataHolder {
     private static DataHolder data_holder = null;
 
     private String userID;
-
+    int uploadCount = 1;
     private DataHolder(){
+
     }
 
     public static DataHolder getInstance() {
@@ -29,5 +30,12 @@ public class DataHolder {
     }
     public String getUserID(){
         return userID;
+    }
+
+    public void adduploadCount(){
+        uploadCount +=1;
+    }
+    public void decuploadCount(){
+        uploadCount -=1;
     }
 }

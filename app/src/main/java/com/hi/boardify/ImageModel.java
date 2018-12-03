@@ -1,12 +1,16 @@
 package com.hi.boardify;
 
+import android.media.Image;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ImageModel implements Parcelable{
 
     String name, url;
-
+    public ImageModel(String url, String name){
+        this.name = name;
+        this.url = url;
+    }
     public ImageModel() {
     }
     // Getters & Setters here
