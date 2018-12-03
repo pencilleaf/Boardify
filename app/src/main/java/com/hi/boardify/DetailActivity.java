@@ -46,8 +46,10 @@ public class DetailActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-        data = getIntent().getParcelableArrayListExtra("data");
+        Bundle b = getIntent().getBundleExtra("bundle");
+        data = b.getParcelableArrayList("data");
         pos = getIntent().getIntExtra("pos",0);
+
         setTitle(data.get(pos).getName());
 
 
