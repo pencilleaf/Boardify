@@ -42,7 +42,7 @@ public class DownloadBoards extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         data = new ArrayList<>();
         final RecyclerView mRecyclerView = findViewById(R.id.list);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         mRecyclerView.setHasFixedSize(true);
 
         databaseReference.addValueEventListener(

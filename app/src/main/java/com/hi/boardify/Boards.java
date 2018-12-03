@@ -45,7 +45,7 @@ public class Boards extends AppCompatActivity {
         getJson();
 
         RecyclerView mRecyclerView = findViewById(R.id.list);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new GalleryAdapter(Boards.this, data);
         mRecyclerView.setAdapter(mAdapter);
