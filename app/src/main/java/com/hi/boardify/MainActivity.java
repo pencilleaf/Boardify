@@ -1,12 +1,14 @@
 package com.hi.boardify;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,15 +28,20 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private FirebaseUser user;
     private FirebaseAuth auth;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        loginPreferences = getSharedPreferences("loginPrefs",MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        Log.i("LOGCAT",user.toString());
 
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,8 +89,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.logout_btn) {
             if (user != null) {
                 auth.signOut();
+                loginPrefsEditor.clear();
+                loginPrefsEditor.commit();
                 Toast.makeText(MainActivity.this, "Logout successful", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+
+
             }
         }
 

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,13 +26,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class Boards extends AppCompatActivity {
+public class Boards extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     String server_url = "http://boardify.ml";
     ArrayList<ImageModel> data = new ArrayList<>();
     JSONArray request;
     GalleryAdapter mAdapter;
-
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,9 @@ public class Boards extends AppCompatActivity {
         getJson();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.hide();
+
+        searchView = findViewById(R.id.searchImages);
+        searchView.setOnQueryTextListener(this);
 
         RecyclerView mRecyclerView = findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
@@ -110,7 +114,19 @@ public class Boards extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        Intent intent = new Intent(Boards.this, ImagesResult.class);
+        intent.putExtra("query" , query);
+        startActivity(intent);
+        return true;
+    }
 
 
 }

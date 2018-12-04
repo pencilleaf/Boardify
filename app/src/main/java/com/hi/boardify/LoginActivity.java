@@ -4,6 +4,7 @@ package com.hi.boardify;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
+    private String storeusername,storepassword;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private EditText email, password;
@@ -38,6 +41,9 @@ public class LoginActivity extends AppCompatActivity {
     public String userid;
     DataHolder dataHolder;
     RadioButton radioButton;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
 
     //private int counter = 0;
     // can implement counter for login
@@ -52,7 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.userPassword);
         login = findViewById(R.id.loginButton);
         auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+        loginPreferences = getSharedPreferences("loginPrefs",MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
         radioButton = findViewById(R.id.radioButton);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -60,6 +68,12 @@ public class LoginActivity extends AppCompatActivity {
         String help ="Need help? Click here.";
         SpannableString ss = new SpannableString(help);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        if (saveLogin == true) {
+            email.setText(loginPreferences.getString("storeusername", ""));
+            password.setText(loginPreferences.getString("storepassword", ""));
+            radioButton.setChecked(true);
+        }
 
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -91,6 +105,15 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 if (radioButton.isChecked()) {
+                    loginPrefsEditor.putBoolean("saveLogin", true);
+                    loginPrefsEditor.putString("storeusername", loginstudentid);
+                    loginPrefsEditor.putString("storepassword", loginpassword);
+                    loginPrefsEditor.commit();
+                } else {
+                    loginPrefsEditor.clear();
+                    loginPrefsEditor.commit();
+                }
+
                     auth.signInWithEmailAndPassword(loginstudentid, loginpassword)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -109,9 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
 
-                }else{
-                    Toast.makeText(LoginActivity.this,"Please accept the terms and conditions", Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
     }

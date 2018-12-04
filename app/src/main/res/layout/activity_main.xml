@@ -19,9 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            <View android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/toolbar_dropshadow"/>
 
         <FrameLayout
+
             android:id="@+id/screen"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -32,9 +37,9 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:itemTextColor="@color/colorlight"
-        android:background="@color/colorPrimary"
-        app:itemIconTint="@color/colorlight"
+        app:itemTextColor="@color/black"
+        android:background="@color/white"
+        app:itemIconTint="@color/gray"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"

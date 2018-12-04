@@ -124,10 +124,8 @@ public class DownloadBoards extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(View view, int position) {
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelableArrayList("data",data);
                         Intent intent = new Intent(DownloadBoards.this, DetailActivity.class);
-                        intent.putExtra("bundle", bundle);
+                        intent.putParcelableArrayListExtra("data", data);
                         intent.putExtra("pos", position);
                         intent.putExtra("Uniqid", "DownloadBoards");
                         startActivity(intent);

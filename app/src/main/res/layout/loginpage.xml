@@ -102,7 +102,7 @@
                 android:id="@+id/radioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="I agree to the Terms and Conditions"
+                android:text="Remember me"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:button="@drawable/radio_button"
