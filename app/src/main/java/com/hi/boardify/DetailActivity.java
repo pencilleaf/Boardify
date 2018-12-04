@@ -118,14 +118,14 @@ public class DetailActivity extends AppCompatActivity {
         if (id == R.id.action_delete){
             databaseReference.child(data.get(pos).getName()).removeValue();
 
-            String storageUrl = "images/"+data.get(pos).getName();
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(storageUrl);
-            storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            String storageUrl = "images/"+data.get(pos).getName(); //get the file path to be removed
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(storageUrl); //set it as child
+            storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() { //deletes it
                 @Override
                 public void onSuccess(Void aVoid) {
                     // File deleted successfully
                     Log.d(TAG, "onSuccess: deleted file");
-                    dataHolder.decuploadCount();
+                    dataHolder.decuploadCount(); //if success we will decrement the uploadCount
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

@@ -92,7 +92,7 @@ public class DownloadBoards extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-
+                // Opens up Gallery and waits for a pick
 
             }
 
@@ -137,6 +137,7 @@ public class DownloadBoards extends AppCompatActivity {
 
     }
 
+    //When one of the image is selected it runs on Activity Result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -145,6 +146,7 @@ public class DownloadBoards extends AppCompatActivity {
         {
             filePath = data.getData();
             try {
+                //Converts the picture from Gallery into bitmap and calls uploadImage method
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 uploadImage();
             }
@@ -162,6 +164,9 @@ public class DownloadBoards extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
+            //dataHolder stores the integer count of the number of uploads which helps to name the file in order as well for uploads/deletes.
+            //So we generate a file name called upload + whatever number count it is at. This has to be persistent so that the we will not replace when we try to upload again
+            // Note this child is also what appears on the Firebase Storage so it is the name to use when deleting as well
             StorageReference ref = storageReference.child("images/"+ "upload" + dataHolder.uploadCount);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -169,12 +174,12 @@ public class DownloadBoards extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(DownloadBoards.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl(); //EXTRACT The URL, because that is what we want to store in the database
                             while (!urlTask.isSuccessful());
                             String downloadUrl = urlTask.getResult().toString();
-                            ImageModel uploadImage = new ImageModel(downloadUrl,"upload"+dataHolder.uploadCount);
-                            uploadDatabase(uploadImage);
-                            dataHolder.adduploadCount();
+                            ImageModel uploadImage = new ImageModel(downloadUrl,"upload"+dataHolder.uploadCount); //create a new image model with our new URL and name
+                            uploadDatabase(uploadImage); // So that we have a copy on database and it loads on DataUpdate
+                            dataHolder.adduploadCount(); //increment uploadCount, take note that dataHolder is a Singleton class
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -184,6 +189,7 @@ public class DownloadBoards extends AppCompatActivity {
                             Toast.makeText(DownloadBoards.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
+                    // displays the loading percentage while uploading
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
@@ -195,7 +201,7 @@ public class DownloadBoards extends AppCompatActivity {
         }
     }
     private void uploadDatabase(ImageModel uploadImage){
-        databaseReference.child(uploadImage.getName()).setValue(uploadImage);
+        databaseReference.child(uploadImage.getName()).setValue(uploadImage); //Name that is pushed up onto the Firebase Database
     }
 }
 
