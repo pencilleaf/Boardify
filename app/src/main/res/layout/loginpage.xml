@@ -98,18 +98,18 @@
                 android:imeOptions="actionDone"
                 android:paddingLeft="10dp" />
 
-            <RadioButton
-                android:id="@+id/radioButton"
+
+            <CheckBox
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Remember me"
                 android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:button="@drawable/radio_button"
-                android:paddingLeft="5dp"
-                android:singleLine="true"
-                android:textSize="13sp" />
-
+                android:text="Remember me"
+                android:id="@+id/radioButton"
+                android:buttonTint="@color/white"
+                android:layout_column="0"
+                android:layout_weight="1"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/loginButton"
                 android:layout_width="wrap_content"

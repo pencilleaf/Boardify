@@ -8,7 +8,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,13 +32,14 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth auth;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
-
+    String searchurl="http://boardify.ml/search";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("My Classes");
         loginPreferences = getSharedPreferences("loginPrefs",MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
         auth = FirebaseAuth.getInstance();
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity
 
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.screen, new FragClass()).commit();
+        fragmentTransaction.replace(R.id.screen, new FragClass()).commit(); //the line that opens up the fragclass
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -69,8 +72,28 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main,menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search_main);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(MainActivity.this, ImagesResult.class);
+                intent.putExtra("server",searchurl);
+                intent.putExtra("query" , query);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
         return true;
     }
 
@@ -109,15 +132,15 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_class) {
             fragment = new FragClass();
+            getSupportActionBar().setTitle("My Classes");
         } else if (id == R.id.nav_saved) {
-            Intent intent = new Intent(this, DownloadBoards.class);
-            startActivity(intent);
+            fragment = new FragSaved();
+            getSupportActionBar().setTitle("My Whiteboards");
         }
         if(fragment!=null){
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.screen, fragment).commit();
         }
-
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -1,13 +1,15 @@
 package com.hi.boardify;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Filter;
+import android.widget.Filterable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -21,10 +23,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     Context context;
     ArrayList<ImageModel> data;
+    ArrayList<ImageModel> dataFull;
+
 
     public GalleryAdapter(Context context, ArrayList<ImageModel> data) {
         this.context = context;
         this.data = data;
+        this.dataFull = new ArrayList<>();
     }
 
 
@@ -33,7 +38,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         RecyclerView.ViewHolder viewHolder;
         View v;
         v = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.card_item, parent, false);
+                R.layout.cardview_item, parent, false);
         viewHolder = new MyItemHolder(v);
 
         return viewHolder;
@@ -69,5 +74,38 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     }
 
+//    @Override
+//    public Filter getFilter() {
+//
+//        return dataFilter;
+//    }
+//    private Filter dataFilter = new Filter(){
+//        @Override
+//        protected FilterResults performFiltering(CharSequence constraint) {
+//            ArrayList<ImageModel> filteredList = new ArrayList<>();
+//
+//            if (constraint == null || constraint.length()==0){
+//                filteredList.addAll(dataFull);
+//            }else{
+//                String filterPattern  = constraint.toString().toLowerCase().trim();
+//
+//                for (ImageModel imageModel: dataFull){
+//                    if(imageModel.getUrl().toLowerCase().contains(filterPattern)){
+//                        filteredList.add(imageModel);
+//                    }
+//                }
+//            }
+//            FilterResults results = new FilterResults();
+//            results.values = filteredList;
+//            return results;
+//        }
+//
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//            data.clear();
+//            data.addAll((ArrayList) results.values);
+//            notifyDataSetChanged();
+//        }
+//    };
 
 }

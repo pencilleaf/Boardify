@@ -12,4 +12,13 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="infosys">Introduction to Information Systems and Design</string>
+    <string name="compstruct">Computational Structures</string>
+    <string name="algo">Introduction to Algorithms</string>
+    <string name="physics">Engineering in the Physical World</string>
+    <string name="math">Modelling the Systems World</string>
+    <string name="chem">Introduction to Physical Chemistry</string>
+    <string name="bio">Chemistry and Biology: Natural World</string>
+    <string name="hass">Humanities, Arts and Social Sciences</string>
+    <string name="downloads">My Whiteboards</string>
 </resources>

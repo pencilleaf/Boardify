@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,12 +24,12 @@
                    android:minHeight="72dp">
                    <ImageView
                        android:id="@+id/icon1"
-                       android:layout_height="40dp"
-                       android:layout_width="40dp"
+                       android:layout_height="50dp"
+                       android:layout_width="50dp"
                        android:layout_alignParentLeft="true"
                        android:layout_margin="16dp"
                        android:layout_centerVertical="true"
-                       android:src="@drawable/ic_folder_black_24dp"/>
+                       android:src="@drawable/is"/>
 
                    <LinearLayout
                        android:layout_width = "match_parent"
@@ -52,7 +55,7 @@
                            android:layout_marginEnd = "16dp"
                            android:layout_marginRight="16dp"
                            android:ellipsize="marquee"
-                           android:text = "50.001 Introduction to Information Systems and Design"
+                           android:text = "Introduction to Information Systems and Design"
                            android:textColor = "@android:color/black"
                            android:textSize = "16sp"
                            android:fontFamily="sans-serif"/>
@@ -76,12 +79,12 @@
             android:minHeight="72dp">
             <ImageView
                 android:id="@+id/icon2"
-                android:layout_height="40dp"
-                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_margin="16dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_folder_black_24dp"/>
+                android:src="@drawable/compstruct"/>
 
             <LinearLayout
                 android:layout_width = "match_parent"
@@ -106,7 +109,7 @@
                         android:layout_marginEnd = "16dp"
                         android:layout_marginRight="16dp"
                         android:ellipsize="marquee"
-                        android:text = "50.002 Computational Structures"
+                        android:text = "Computational Structures"
                         android:textColor = "@android:color/black"
                         android:textSize = "16sp"
                         android:fontFamily="sans-serif"/>
@@ -130,12 +133,12 @@
             android:minHeight="72dp">
             <ImageView
                 android:id="@+id/icon3"
-                android:layout_height="40dp"
-                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_margin="16dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_folder_black_24dp"/>
+                android:src="@drawable/algo"/>
 
             <LinearLayout
                 android:layout_width = "match_parent"
@@ -160,7 +163,277 @@
                         android:layout_marginEnd = "16dp"
                         android:layout_marginRight="16dp"
                         android:ellipsize="marquee"
-                        android:text = "50.004 Introduction to Algorithms"
+                        android:text = "Introduction to Algorithms"
+                        android:textColor = "@android:color/black"
+                        android:textSize = "16sp"
+                        android:fontFamily="sans-serif"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="72dp">
+            <ImageView
+                android:id="@+id/icon4"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="16dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/physics"/>
+
+            <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "40dp"
+                android:layout_toRightOf="@+id/icon4"
+                android:layout_marginBottom = "16dp"
+                android:layout_marginEnd = "16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart = "16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop = "16dp"
+                android:orientation = "vertical">
+
+                <LinearLayout
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:orientation = "horizontal">
+
+                    <TextView
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginEnd = "16dp"
+                        android:layout_marginRight="16dp"
+                        android:ellipsize="marquee"
+                        android:text = "Engineering in the Physical World"
+                        android:textColor = "@android:color/black"
+                        android:textSize = "16sp"
+                        android:fontFamily="sans-serif"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="72dp">
+            <ImageView
+                android:id="@+id/icon5"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="16dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/math"/>
+
+            <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "40dp"
+                android:layout_toRightOf="@+id/icon5"
+                android:layout_marginBottom = "16dp"
+                android:layout_marginEnd = "16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart = "16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop = "16dp"
+                android:orientation = "vertical">
+
+                <LinearLayout
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:orientation = "horizontal">
+
+                    <TextView
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginEnd = "16dp"
+                        android:layout_marginRight="16dp"
+                        android:ellipsize="marquee"
+                        android:text = "Modelling The Systems World"
+                        android:textColor = "@android:color/black"
+                        android:textSize = "16sp"
+                        android:fontFamily="sans-serif"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="72dp">
+            <ImageView
+                android:id="@+id/icon6"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="16dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/chemistry"/>
+
+            <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "40dp"
+                android:layout_toRightOf="@+id/icon6"
+                android:layout_marginBottom = "16dp"
+                android:layout_marginEnd = "16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart = "16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop = "16dp"
+                android:orientation = "vertical">
+
+                <LinearLayout
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:orientation = "horizontal">
+
+                    <TextView
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginEnd = "16dp"
+                        android:layout_marginRight="16dp"
+                        android:ellipsize="marquee"
+                        android:text = "Introduction to Physical Chemistry"
+                        android:textColor = "@android:color/black"
+                        android:textSize = "16sp"
+                        android:fontFamily="sans-serif"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="72dp">
+            <ImageView
+                android:id="@+id/icon7"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="16dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/biology"/>
+
+            <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "40dp"
+                android:layout_toRightOf="@+id/icon7"
+                android:layout_marginBottom = "16dp"
+                android:layout_marginEnd = "16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart = "16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop = "16dp"
+                android:orientation = "vertical">
+
+                <LinearLayout
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:orientation = "horizontal">
+
+                    <TextView
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginEnd = "16dp"
+                        android:layout_marginRight="16dp"
+                        android:ellipsize="marquee"
+                        android:text = "Chemistry and Biology: Natural World"
+                        android:textColor = "@android:color/black"
+                        android:textSize = "16sp"
+                        android:fontFamily="sans-serif"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="72dp">
+            <ImageView
+                android:id="@+id/icon8"
+                android:layout_height="50dp"
+                android:layout_width="50dp  "
+                android:layout_alignParentLeft="true"
+                android:layout_margin="16dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/hass"/>
+
+            <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "40dp"
+                android:layout_toRightOf="@+id/icon8"
+                android:layout_marginBottom = "16dp"
+                android:layout_marginEnd = "16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart = "16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop = "16dp"
+                android:orientation = "vertical">
+
+                <LinearLayout
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:orientation = "horizontal">
+
+                    <TextView
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginEnd = "16dp"
+                        android:layout_marginRight="16dp"
+                        android:ellipsize="marquee"
+                        android:text = "Humanities, Arts and Social Sciences"
                         android:textColor = "@android:color/black"
                         android:textSize = "16sp"
                         android:fontFamily="sans-serif"/>
@@ -172,3 +445,4 @@
 
 
     </LinearLayout>
+</ScrollView>

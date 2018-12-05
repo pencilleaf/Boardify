@@ -5,13 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -24,7 +29,7 @@ import java.util.ArrayList;
 public class ImagesResult extends AppCompatActivity {
     ArrayList<ImageModel> data = new ArrayList<>();
     GalleryAdapter mAdapter;
-    String server_url = "http://boardify.ml/search";
+    String server_url ;
     String query;
     JSONArray request;
 
@@ -33,14 +38,15 @@ public class ImagesResult extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_images_result);
 
+        // add an if statement here to check the previous intent.
+        server_url = getIntent().getStringExtra("server");
         query = getIntent().getStringExtra("query");
         query = query.replaceAll(" ", "+");
-        ImageModel test = new ImageModel();
-        test.setUrl("https://storage.googleapis.com/boardify-whiteboards/7455604.jpg");
-        test.setName("test");
-        data.add(test);
+        ImageModel test = new ImageModel();;
         getJson();
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Search Results");
         RecyclerView mRecyclerView = findViewById(R.id.imageList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         mRecyclerView.setHasFixedSize(true);
@@ -80,7 +86,7 @@ public class ImagesResult extends AppCompatActivity {
                                 try {
                                     JSONObject jsonObject = request.getJSONObject(i);
                                     ImageModel imageModel = new ImageModel();
-                                    imageModel.setName("test");
+                                    imageModel.setName(jsonObject.getString("title"));
                                     imageModel.setUrl(jsonObject.getString("url").replace("\\",""));
                                     data.add(imageModel);
                                     Log.i("LOGCAT", imageModel.getUrl());
@@ -106,5 +112,41 @@ public class ImagesResult extends AppCompatActivity {
         });
 
         queue.add(jsonObjectRequest);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search,menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(ImagesResult.this, ImagesResult.class);
+                intent.putExtra("server", server_url);
+                intent.putExtra("query" , query);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

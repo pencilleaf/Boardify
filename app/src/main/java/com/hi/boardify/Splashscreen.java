@@ -27,37 +27,35 @@ public class Splashscreen extends Activity {
 
     }
     private void StartAnimations() {
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
-        anim.reset();
+        Animation bg = AnimationUtils.loadAnimation(this, R.anim.alpha);
+        bg.reset();
         LinearLayout l=(LinearLayout) findViewById(R.id.lin_lay);
         l.clearAnimation();
-        l.startAnimation(anim);
+        l.startAnimation(bg);
 
-        anim = AnimationUtils.loadAnimation(this, R.anim.splash_transition);
-        anim.reset();
+        Animation bounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
         ImageView iv = (ImageView) findViewById(R.id.splash);
-        iv.clearAnimation();
-        iv.startAnimation(anim);
+        iv.startAnimation(bounce);
+
         final Intent intent = new Intent(Splashscreen.this, LoginActivity.class);
 
-        splashTread = new Thread() {
+        bounce.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void run() {
-                try {
-                    sleep(5000);
-
-                } catch (InterruptedException e) {
-                    // do nothing
-                } finally {
-                    startActivity(intent);
-                    Splashscreen.this.finish();
-
-                }
+            public void onAnimationStart(Animation animation) {
 
             }
-        };
-        splashTread.start();
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ImageView ip = findViewById(R.id.splash);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
 }

@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button login;
     public String userid;
     DataHolder dataHolder;
-    RadioButton radioButton;
+    CheckBox radioButton;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;

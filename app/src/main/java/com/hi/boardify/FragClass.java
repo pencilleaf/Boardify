@@ -36,17 +36,19 @@ public class FragClass extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_frag_class, container, false);
 
+        //pass extras in intent to determine which mod is being clicked
         CardView cardView1 = view.findViewById(R.id.card_view1);
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getActivity(), Boards.class);
+                intent.putExtra("prev", "infosys");
                 startActivity(intent);
             }
         });
@@ -56,6 +58,7 @@ public class FragClass extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Boards.class);
+                intent.putExtra("prev", "compstruct");
                 startActivity(intent);
             }
         });
@@ -65,6 +68,52 @@ public class FragClass extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Boards.class);
+                intent.putExtra("prev", "algo");
+                startActivity(intent);
+            }
+        });
+        CardView cardView4 = view.findViewById(R.id.card_view4);
+        cardView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Boards.class);
+                intent.putExtra("prev", "physics");
+                startActivity(intent);
+            }
+        });
+        CardView cardView5 = view.findViewById(R.id.card_view5);
+        cardView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Boards.class);
+                intent.putExtra("prev", "math");
+                startActivity(intent);
+            }
+        });
+        CardView cardView6 = view.findViewById(R.id.card_view6);
+        cardView6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Boards.class);
+                intent.putExtra("prev", "chemistry");
+                startActivity(intent);
+            }
+        });
+        CardView cardView7 = view.findViewById(R.id.card_view7);
+        cardView7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Boards.class);
+                intent.putExtra("prev", "biology");
+                startActivity(intent);
+            }
+        });
+        CardView cardView8 = view.findViewById(R.id.card_view8);
+        cardView8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Boards.class);
+                intent.putExtra("prev", "hass");
                 startActivity(intent);
             }
         });

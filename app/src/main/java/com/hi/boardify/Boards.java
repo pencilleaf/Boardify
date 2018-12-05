@@ -1,5 +1,7 @@
 package com.hi.boardify;
-
+import android.app.SearchManager;
+import android.support.v7.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,9 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,13 +31,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class Boards extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class Boards extends AppCompatActivity{
 
-    String server_url = "http://boardify.ml";
+    String server_url;
     ArrayList<ImageModel> data = new ArrayList<>();
     JSONArray request;
     GalleryAdapter mAdapter;
     SearchView searchView;
+    String searchurl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,16 +46,44 @@ public class Boards extends AppCompatActivity implements SearchView.OnQueryTextL
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ImageModel test = new ImageModel();
-        test.setUrl("https://storage.googleapis.com/boardify-whiteboards/7455604.jpg");
-        test.setName("test");
-        data.add(test);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (getIntent().getStringExtra("prev").equals("infosys")){
+            server_url = "http://boardify.ml/module/1";
+            searchurl = "http://boardify.ml/search/1";
+            getSupportActionBar().setTitle(getString(R.string.infosys));
+        }else if(getIntent().getStringExtra("prev").equals("compstruct")){
+            server_url = "http://boardify.ml/module/2";
+            searchurl = "http://boardify.ml/search/2";
+            getSupportActionBar().setTitle(getString(R.string.compstruct));
+        }else if(getIntent().getStringExtra("prev").equals("algo")){
+            server_url = "http://boardify.ml/module/3";
+            searchurl = "http://boardify.ml/search/3";
+            getSupportActionBar().setTitle(getString(R.string.algo));
+        }else if(getIntent().getStringExtra("prev").equals("physics")){
+            server_url = "http://boardify.ml/module/4";
+            searchurl = "http://boardify.ml/search/4";
+            getSupportActionBar().setTitle(getString(R.string.physics));
+        }else if(getIntent().getStringExtra("prev").equals("math")){
+            server_url = "http://boardify.ml/module/5";
+            searchurl = "http://boardify.ml/search/5";
+            getSupportActionBar().setTitle(getString(R.string.math));
+        }else if(getIntent().getStringExtra("prev").equals("chemistry")){
+            server_url = "http://boardify.ml/module/6";
+            searchurl = "http://boardify.ml/search/6";
+            getSupportActionBar().setTitle(getString(R.string.chem));
+        }else if(getIntent().getStringExtra("prev").equals("biology")){
+            server_url = "http://boardify.ml/module/7";
+            searchurl = "http://boardify.ml/search/7";
+            getSupportActionBar().setTitle(getString(R.string.bio));
+        }else if(getIntent().getStringExtra("prev").equals("hass")){
+            server_url = "http://boardify.ml/module/8";
+            searchurl = "http://boardify.ml/search/8";
+            getSupportActionBar().setTitle(getString(R.string.hass));
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getJson();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.hide();
-
-        searchView = findViewById(R.id.searchImages);
-        searchView.setOnQueryTextListener(this);
 
         RecyclerView mRecyclerView = findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
@@ -89,6 +123,8 @@ public class Boards extends AppCompatActivity implements SearchView.OnQueryTextL
                                     ImageModel imageModel = new ImageModel();
                                     imageModel.setName(jsonObject.getString("title"));
                                     imageModel.setUrl(jsonObject.getString("url").replace("\\",""));
+                                    imageModel.setProf(jsonObject.getString("professor"));
+                                    imageModel.setTime(jsonObject.getString("time_photo_taken"));
                                     data.add(imageModel);
                                     Log.i("LOGCAT", imageModel.getUrl());
                                 } catch (JSONException ex) {
@@ -115,18 +151,39 @@ public class Boards extends AppCompatActivity implements SearchView.OnQueryTextL
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search,menu);
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
 
-        Intent intent = new Intent(Boards.this, ImagesResult.class);
-        intent.putExtra("query" , query);
-        startActivity(intent);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(Boards.this, ImagesResult.class);
+                intent.putExtra("server", searchurl);
+                intent.putExtra("query" , query);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
 
+        return super.onOptionsItemSelected(item);
+    }
 }

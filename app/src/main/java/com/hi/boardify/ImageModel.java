@@ -6,10 +6,12 @@ import android.os.Parcelable;
 
 public class ImageModel implements Parcelable{
 
-    String name, url;
+    String name, url,time,prof;
     public ImageModel(String url, String name){
         this.name = name;
         this.url = url;
+        this.time = time;
+        this.prof = prof;
     }
     public ImageModel() {
     }
@@ -17,6 +19,8 @@ public class ImageModel implements Parcelable{
     protected ImageModel(Parcel in) {
         name = in.readString();
         url = in.readString();
+        time = in.readString();
+        prof = in.readString();
     }
 
     public static final Creator<ImageModel> CREATOR = new Creator<ImageModel>() {
@@ -40,6 +44,8 @@ public class ImageModel implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(url);
+        dest.writeString(time);
+        dest.writeString(prof);
     }
 
     public String getName() {
@@ -50,6 +56,11 @@ public class ImageModel implements Parcelable{
         return url;
     }
 
+    public String getTime(){return time;}
+
+    public String getProf(){return prof;}
+
+
     public void setName(String name) {
         this.name = name;
     }
@@ -57,5 +68,8 @@ public class ImageModel implements Parcelable{
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setTime(String time){this.time = time;}
+    public void setProf(String prof){this.prof=prof;}
 
 }

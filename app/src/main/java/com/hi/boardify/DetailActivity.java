@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,6 +35,8 @@ public class DetailActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseStorage storage;
     StorageReference storageReference;
+    TextView professor;
+    TextView time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +46,19 @@ public class DetailActivity extends AppCompatActivity {
         dataHolder = DataHolder.getInstance();
         setContentView(R.layout.activity_detail);
         databaseReference= mRootDatabaseRef.child(dataHolder.getUserID());
+        professor = findViewById(R.id.professor);
+        time = findViewById(R.id.time);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         data = getIntent().getParcelableArrayListExtra("data");
         pos = getIntent().getIntExtra("pos",0);
 
         setTitle(data.get(pos).getName());
+        professor.setText(data.get(pos).getProf());
+        time.setText(data.get(pos).getTime());
 
 
         // Create the adapter that will return a fragment for each of the three
@@ -108,7 +117,10 @@ public class DetailActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
         if (id == R.id.action_download){
             databaseReference.child(data.get(pos).getName()).setValue(data.get(pos));
             Toast.makeText(this,"Whiteboard downloaded",Toast.LENGTH_LONG).show();

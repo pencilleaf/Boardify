@@ -23,9 +23,35 @@
         android:background="@color/colorPrimary"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-        <View android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@drawable/toolbar_dropshadow"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" >
+        <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Hello"
+        android:textSize="20dp"
+        android:id="@+id/professor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/container"
+        android:layout_gravity="bottom" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="time"
+            android:textSize="15dp"
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            app:layout_anchor="@id/professor"
+            android:layout_gravity="bottom" />
+
+    </FrameLayout>
+
 
 
 </android.support.design.widget.CoordinatorLayout>
