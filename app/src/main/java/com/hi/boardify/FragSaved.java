@@ -62,7 +62,6 @@ public class FragSaved extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_frag_saved, container, false);
         dataHolder = DataHolder.getInstance();
-
         databaseReference = mRootDatabaseRef.child(dataHolder.getUserID());
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();

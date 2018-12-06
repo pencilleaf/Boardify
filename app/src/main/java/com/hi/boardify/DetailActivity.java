@@ -45,7 +45,8 @@ public class DetailActivity extends AppCompatActivity {
         storageReference = storage.getReference();
         dataHolder = DataHolder.getInstance();
         setContentView(R.layout.activity_detail);
-        databaseReference= mRootDatabaseRef.child(dataHolder.getUserID());
+        databaseReference = mRootDatabaseRef.child(dataHolder.getUserID());
+        Log.i("TAG",dataHolder.getUserID());
         professor = findViewById(R.id.professor);
         time = findViewById(R.id.time);
 
@@ -123,12 +124,11 @@ public class DetailActivity extends AppCompatActivity {
         }
         if (id == R.id.action_download){
             databaseReference.child(data.get(pos).getName()).setValue(data.get(pos));
-            Toast.makeText(this,"Whiteboard downloaded",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Whiteboard saved",Toast.LENGTH_LONG).show();
             return true;
         }
         if (id == R.id.action_delete){
             databaseReference.child(data.get(pos).getName()).removeValue();
-
             String storageUrl = "images/"+data.get(pos).getName(); //get the file path to be removed
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(storageUrl); //set it as child
             storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() { //deletes it
@@ -145,8 +145,10 @@ public class DetailActivity extends AppCompatActivity {
                     Log.d(TAG, "onFailure: did not delete file");
                 }
             });
-            Intent intent = new Intent(DetailActivity.this, DownloadBoards.class);
+            Intent intent = new Intent(DetailActivity.this, MainActivity.class);
+            intent.putExtra("delete",true);
             startActivity(intent);
+            this.overridePendingTransition(0,R.anim.left_to_right);
             Toast.makeText(DetailActivity.this,"Whiteboard deleted",Toast.LENGTH_LONG).show();
 
         }

@@ -54,7 +54,12 @@ public class MainActivity extends AppCompatActivity
 
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.screen, new FragClass()).commit(); //the line that opens up the fragclass
+        if ((getIntent().getBooleanExtra("delete",false)) == true){
+            fragmentTransaction.replace(R.id.screen, new FragSaved()).commit(); //the line that opens up the fragclass
+        }else{
+            fragmentTransaction.replace(R.id.screen, new FragClass()).commit(); //the line that opens up the fragclass
+        }
+
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
