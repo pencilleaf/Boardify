@@ -127,4 +127,5 @@ public class FragClass extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
     }
+
 }

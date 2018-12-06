@@ -155,7 +155,7 @@ public class FragSaved extends Fragment {
             //dataHolder stores the integer count of the number of uploads which helps to name the file in order as well for uploads/deletes.
             //So we generate a file name called upload + whatever number count it is at. This has to be persistent so that the we will not replace when we try to upload again
             // Note this child is also what appears on the Firebase Storage so it is the name to use when deleting as well
-            StorageReference ref = storageReference.child("images/"+ "upload" + dataHolder.uploadCount);
+                StorageReference ref = storageReference.child("images/"+ "upload" + dataHolder.uploadCount);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

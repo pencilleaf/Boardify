@@ -30,16 +30,16 @@
         android:layout_gravity="bottom" >
         <TextView
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="150dp"
         android:text="Hello"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:id="@+id/professor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/container"
         android:layout_gravity="bottom" />
         <TextView
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="250dp"
             android:layout_marginRight="10dp"
             android:text="time"
             android:textSize="15dp"

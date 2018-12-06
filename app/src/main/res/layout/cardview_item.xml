@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
-    app:cardElevation="8dp"
+    app:cardElevation="10dp"
     app:cardCornerRadius="4dp">
     
     <LinearLayout
@@ -18,15 +18,15 @@
             android:id="@+id/thumbnail"
             android:layout_height="160dp"
             android:scaleType="centerCrop"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            />
         <TextView
             android:id="@+id/imagetitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:layout_margin="5dp"
             android:textSize="13sp"/>
 
     </LinearLayout>

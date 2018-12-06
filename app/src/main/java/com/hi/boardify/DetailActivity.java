@@ -16,8 +16,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -37,6 +40,7 @@ public class DetailActivity extends AppCompatActivity {
     StorageReference storageReference;
     TextView professor;
     TextView time;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +64,7 @@ public class DetailActivity extends AppCompatActivity {
         setTitle(data.get(pos).getName());
         professor.setText(data.get(pos).getProf());
         time.setText(data.get(pos).getTime());
-
+        id = data.get(pos).getId();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -123,12 +127,12 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_download){
-            databaseReference.child(data.get(pos).getName()).setValue(data.get(pos));
+            databaseReference.child(data.get(pos).getId()).setValue(data.get(pos));
             Toast.makeText(this,"Whiteboard saved",Toast.LENGTH_LONG).show();
             return true;
         }
         if (id == R.id.action_delete){
-            databaseReference.child(data.get(pos).getName()).removeValue();
+            databaseReference.child(data.get(pos).getId()).removeValue();
             String storageUrl = "images/"+data.get(pos).getName(); //get the file path to be removed
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(storageUrl); //set it as child
             storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() { //deletes it
@@ -155,5 +159,6 @@ public class DetailActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
 

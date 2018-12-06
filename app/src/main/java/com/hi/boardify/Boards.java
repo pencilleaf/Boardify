@@ -111,18 +111,14 @@ public class Boards extends AppCompatActivity{
                 }));
 
     }
-
-
     private void getJson(){
         final RequestQueue requestQueue  = Volley.newRequestQueue(Boards.this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, server_url, null,
-
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             request = response.getJSONArray("boards");
-
                             for (int i = 0; i < request.length(); i++) {
                                 try {
                                     JSONObject jsonObject = request.getJSONObject(i);
@@ -131,6 +127,7 @@ public class Boards extends AppCompatActivity{
                                     imageModel.setUrl(jsonObject.getString("url").replace("\\",""));
                                     imageModel.setProf(jsonObject.getString("professor"));
                                     imageModel.setTime(jsonObject.getString("time_photo_taken"));
+                                    imageModel.setId(jsonObject.getJSONObject("_id").getString("$oid"));
                                     data.add(imageModel);
                                     Log.i("LOGCAT", imageModel.getUrl());
                                 } catch (JSONException ex) {
@@ -182,7 +179,6 @@ public class Boards extends AppCompatActivity{
         });
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
