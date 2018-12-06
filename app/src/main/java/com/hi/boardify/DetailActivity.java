@@ -126,11 +126,11 @@ public class DetailActivity extends AppCompatActivity {
             finish();
             return true;
         }
-        if (id == R.id.action_download){
-            databaseReference.child(data.get(pos).getId()).setValue(data.get(pos));
-            Toast.makeText(this,"Whiteboard saved",Toast.LENGTH_LONG).show();
-            return true;
-        }
+            if (id == R.id.action_download){
+                databaseReference.child(data.get(pos).getId()).setValue(data.get(pos));
+                Toast.makeText(this,"Whiteboard saved",Toast.LENGTH_LONG).show();
+                return true;
+            }
         if (id == R.id.action_delete){
             databaseReference.child(data.get(pos).getId()).removeValue();
             String storageUrl = "images/"+data.get(pos).getName(); //get the file path to be removed
