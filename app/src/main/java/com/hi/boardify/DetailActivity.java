@@ -127,6 +127,7 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         }
             if (id == R.id.action_download){
+                Log.i("LOGCAT", "THE ID IS" +data.get(pos).getId());
                 databaseReference.child(data.get(pos).getId()).setValue(data.get(pos));
                 Toast.makeText(this,"Whiteboard saved",Toast.LENGTH_LONG).show();
                 return true;

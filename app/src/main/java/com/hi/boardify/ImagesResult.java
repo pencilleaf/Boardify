@@ -32,6 +32,7 @@ public class ImagesResult extends AppCompatActivity {
     String server_url ;
     String query;
     JSONArray request;
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,6 @@ public class ImagesResult extends AppCompatActivity {
         server_url = getIntent().getStringExtra("server");
         query = getIntent().getStringExtra("query");
         query = query.replaceAll(" ", "+");
-        ImageModel test = new ImageModel();;
         getJson();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -88,6 +88,9 @@ public class ImagesResult extends AppCompatActivity {
                                     ImageModel imageModel = new ImageModel();
                                     imageModel.setName(jsonObject.getString("title"));
                                     imageModel.setUrl(jsonObject.getString("url").replace("\\",""));
+                                    imageModel.setProf(jsonObject.getString("professor"));
+                                    imageModel.setTime(jsonObject.getString("time_photo_taken"));
+                                    imageModel.setId(jsonObject.getJSONObject("_id").getString("$oid"));
                                     data.add(imageModel);
                                     Log.i("LOGCAT", imageModel.getUrl());
                                 } catch (JSONException ex) {
@@ -100,6 +103,7 @@ public class ImagesResult extends AppCompatActivity {
                             Log.i("LOGCAT", "Something went wrong");
                         }
                         mAdapter.notifyDataSetChanged();
+                     //   mRecyclerView.setAdapter(mAdapter);
                         queue.stop();
                     }
                 }, new Response.ErrorListener() {
@@ -110,7 +114,6 @@ public class ImagesResult extends AppCompatActivity {
             }
 
         });
-
         queue.add(jsonObjectRequest);
     }
 
